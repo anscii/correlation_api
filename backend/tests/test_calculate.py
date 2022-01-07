@@ -73,3 +73,13 @@ class TestStoreUserData:
             app.url_path_for(ROUTE_NAME), json=jsonable_encoder(new_user_data)
         )
         assert res.status_code == HTTP_404_NOT_FOUND
+
+    async def test_invalid_data(
+        self, app: FastAPI, client: AsyncClient, new_user_data: UserDataCreate
+    ) -> None:
+        new_user_data.data.x[0].value = 'not integer at all'
+
+        res = await client.post(
+            app.url_path_for(ROUTE_NAME), json=jsonable_encoder(new_user_data)
+        )
+        assert res.status_code == HTTP_422_UNPROCESSABLE_ENTITY
