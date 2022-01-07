@@ -33,3 +33,7 @@ class CorrelationPublic(CorrelationBase):
     x_data_type: str
     y_data_type: str
     correlation: CorrelationValue
+
+class CorrelationInput(CorrelationBase):
+    x_data_type: str
+    y_data_type: str
